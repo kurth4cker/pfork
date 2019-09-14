@@ -44,17 +44,6 @@ static void skeleton_daemon()
     /* Set new file permissions */
     umask(0);
 
-    /* Change the working directory to the root directory */
-    /* or another appropriated directory */
-    chdir("/");
-
-    /* Close all open file descriptors */
-    int x;
-    for (x = sysconf(_SC_OPEN_MAX); x>=0; x--)
-    {
-        close (x);
-    }
-
     /* Open the log file */
     openlog ("firstdaemon", LOG_PID, LOG_DAEMON);
 }

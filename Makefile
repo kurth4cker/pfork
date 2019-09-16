@@ -5,8 +5,8 @@ clean:
 
 build:
 	mkdir build || true
-	gcc -o build/fork src/main.c src/daemon.c -O3 -s 
+	gcc -o build/pfork src/main.c src/daemon.c -O3 -s 
 
 install:
 	mkdir -p $(DESTDIR)/usr/bin
-	install build/fork $(DESTDIR)/usr/bin/fork
+	install build/pfork $(DESTDIR)/usr/bin/pfork

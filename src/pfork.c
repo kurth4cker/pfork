@@ -6,13 +6,13 @@
 #include <sys/stat.h>
 #include <string.h>
 #include <fcntl.h>
-int umask_val = 022;
+mode_t umask_val = 0;
 extern char* logfile = "pfork.out";
 extern char* infile = "pfork.in";
 
 extern int silent=1;
 
-extern void set_umask(int value)
+extern void set_umask(mode_t value)
 {
     umask_val = value;
 }
@@ -51,12 +51,18 @@ extern void skeleton_daemon()
     /* Success: Let the parent terminate */
     if (pid > 0)
         exit(EXIT_SUCCESS);
+    
+   
+    /* Set new file permissions */
+    umask(umask_val);
+    
+    fprintf (stderr, "Daemon started:\t[%d]\n",getpid ()+1);
     if(silent)
     {
-        fprintf (stderr, "Daemon started:\t[%d]\n",getpid ()+1);
-        int fdin = open(infile, O_RDONLY | O_CREAT);
-        int fdout = open(logfile, O_WRONLY | O_CREAT);
-        int fderr = open(logfile, O_WRONLY | O_CREAT);
+        mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP;
+        int fdin = open(infile, O_RDONLY,mode);
+        int fdout = open(logfile, O_WRONLY | O_CREAT,mode);
+        int fderr = open(logfile, O_WRONLY | O_CREAT,mode);
     
         /* Set in, out and err to file*/
         close(0);
@@ -68,8 +74,5 @@ extern void skeleton_daemon()
         dup(fderr);
         close(fdout);
     }
- 
-    /* Set new file permissions */
-    umask(umask_val);
 
 }

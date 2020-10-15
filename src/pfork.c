@@ -4,9 +4,20 @@
 #include <signal.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <syslog.h>
+#include <string.h>
+#include <fcntl.h>
+int umask_val = 022;
+extern char* logfile = "pfork.out";
+extern char* infile = "pfork.in";
 
-static void skeleton_daemon()
+extern int silent=1;
+
+extern void set_umask(int value)
+{
+    umask_val = value;
+}
+
+extern void skeleton_daemon()
 {
     pid_t pid;
 
@@ -40,10 +51,25 @@ static void skeleton_daemon()
     /* Success: Let the parent terminate */
     if (pid > 0)
         exit(EXIT_SUCCESS);
-
+    if(silent)
+    {
+        fprintf (stderr, "Daemon started:\t[%d]\n",getpid ()+1);
+        int fdin = open(infile, O_RDONLY | O_CREAT);
+        int fdout = open(logfile, O_WRONLY | O_CREAT);
+        int fderr = open(logfile, O_WRONLY | O_CREAT);
+    
+        /* Set in, out and err to file*/
+        close(0);
+        dup(fdin);
+        close(fdin);
+        close(1);
+        dup(fdout);
+        close(2);
+        dup(fderr);
+        close(fdout);
+    }
+ 
     /* Set new file permissions */
-    umask(0);
+    umask(umask_val);
 
-    /* Open the log file */
-    openlog ("firstdaemon", LOG_PID, LOG_DAEMON);
 }

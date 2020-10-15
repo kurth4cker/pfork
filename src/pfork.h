@@ -4,11 +4,12 @@
  * current pid value changed
 */
 
+#include <sys/types.h>
 //main daemonizer function
 extern void skeleton_daemon();
 
 //change umask value for daemon (default 022)
-extern void set_umask(int umask_value);
+extern void set_umask(mode_t umask_value);
 //stderr and stdout file (if silent equal 0)
 extern char* logfile;
 //stdin file (if silent equal 0)

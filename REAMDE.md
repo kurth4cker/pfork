@@ -4,4 +4,4 @@
 
 -install : `make install DESTDIR=/`
 
-##usege : fork [command] [args]
+##usege : pfork [command] [args]

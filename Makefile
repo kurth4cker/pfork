@@ -12,5 +12,5 @@ install:
 	mkdir -p $(DESTDIR)/usr/bin
 	install build/pfork $(DESTDIR)/usr/bin/pfork
 	install build/libpfork.so $(DESTDIR)/usr/lib/libpfork.so.1
-	ln -s libpfork.so.1 $(DESTDIR)/usr/lib/libpfork.so || true
+	ln -s ./libpfork.so.1 $(DESTDIR)/usr/lib/libpfork.so || true
 	install src/pfork.h $(DESTDIR)/usr/include/pfork.h

@@ -52,13 +52,13 @@ extern void skeleton_daemon()
 
     /* Success: Let the parent terminate */
     if (pid > 0)
+        fprintf (stderr, "\nDaemon started:\t[%d]\n",getpid ()+pid);
         exit(EXIT_SUCCESS);
     
    
     /* Set new file permissions */
     umask(umask_val);
     
-    fprintf (stderr, "Daemon started:\t[%d]\n",getpid ()+1);
     if(silent) {
         mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP;
         int fdin = open(infile, O_RDONLY,mode);

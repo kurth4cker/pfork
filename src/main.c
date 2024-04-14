@@ -1,6 +1,9 @@
 #include <pfork.h>
 #include <stdlib.h>
 #include <string.h>
+
+extern int silent;
+
 int main(int argc,char *argv[]){
   char args[1024]="";
   for(int i=1;i<argc;i++){

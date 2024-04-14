@@ -6,11 +6,13 @@
 #include <sys/stat.h>
 #include <string.h>
 #include <fcntl.h>
-mode_t umask_val = 0;
-extern char* logfile = "pfork.out";
-extern char* infile = "pfork.in";
+#include <pty.h>
 
-extern int silent=1;
+mode_t umask_val = 0;
+char* logfile = "pfork.out";
+char* infile = "pfork.in";
+
+int silent=1;
 
 extern void set_umask(mode_t value)
 {
@@ -57,8 +59,7 @@ extern void skeleton_daemon()
     umask(umask_val);
     
     fprintf (stderr, "Daemon started:\t[%d]\n",getpid ()+1);
-    if(silent)
-    {
+    if(silent) {
         mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP;
         int fdin = open(infile, O_RDONLY,mode);
         int fdout = open(logfile, O_WRONLY | O_CREAT,mode);
@@ -73,6 +74,38 @@ extern void skeleton_daemon()
         close(2);
         dup(fderr);
         close(fdout);
+    } else {
+        /* Set in, out and err to pty*/
+        int master_fd, slave_fd;
+
+        // Open a pseudo-terminal
+        if (openpty(&master_fd, &slave_fd, NULL, NULL, NULL) == -1) {
+            perror("openpty");
+            exit(EXIT_FAILURE);
+        }
+        printf("The master psuedo-terminal id is %d\n",master_fd);
+
+        // Replace stdin with the slave side of the PTY
+        if (dup2(slave_fd, STDIN_FILENO) == -1) {
+            perror("dup2");
+            exit(EXIT_FAILURE);
+        }
+
+        // Replace stdout with the slave side of the PTY
+        if (dup2(slave_fd, STDOUT_FILENO) == -1) {
+            perror("dup2");
+            exit(EXIT_FAILURE);
+        }
+
+        // Replace stderr with the slave side of the PTY
+        if (dup2(slave_fd, STDERR_FILENO) == -1) {
+            perror("dup2");
+            exit(EXIT_FAILURE);
+        }
+
+        // Close the unused PTY file descriptor
+        close(slave_fd);
+
     }
 
 }

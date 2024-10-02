@@ -1,11 +1,18 @@
-### Fork : daemonize any process
+# pfork
+Daemonize given program. Detach from terminal.
 
--compile : `make`
+## Building
+Standard makefile. Here are some installation examples
 
--install : `make install DESTDIR=/`
+    # compile and install
+    make
+    make install
 
-## usege :
- `pfork [command] [args]`
+    # compile with optimization
+    make CFLAGS=-O2
 
- If you dont need output and error logs you must set `SILENT` environmental variable as `1`
+    # you can set some variables. like PREFIX, BINDIR
+    make PREFIX=/usr install
 
+## Copying
+License under GPL-3.0-or-later. See file LICENSE for details.

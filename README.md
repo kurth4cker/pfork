@@ -16,3 +16,9 @@ Standard makefile. Here are some installation examples
 
 ## Copying
 License under GPL-3.0-or-later. See file LICENSE for details.
+
+## History
+Created by [sulincix][]. Forked and redesigned by [kurth4cker][].
+
+[sulincix]: https://gitlab.com/sulincix/fork
+[kurth4cker]: https://gitlab.com/kurth4cker/pfork

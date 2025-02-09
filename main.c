@@ -1,3 +1,7 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: 2019,2020,2024 sulincix <pardusccix@yandex.ru>
+// SPDX-FileCopyrightText: 2024 kurth4cker <kurth4cker@gmail.com>
+
 #include <pfork.h>
 #include <stdlib.h>
 #include <string.h>

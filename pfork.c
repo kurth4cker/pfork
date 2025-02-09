@@ -9,17 +9,17 @@
 #include <pty.h>
 
 mode_t umask_val = 0;
-char* logfile = "pfork.out";
-char* infile = "pfork.in";
+const char *logfile = "pfork.out";
+const char *infile = "pfork.in";
 
-int silent=1;
+bool silent = true;
 
-extern void set_umask(mode_t value)
+void set_umask(mode_t value)
 {
     umask_val = value;
 }
 
-extern void skeleton_daemon()
+void skeleton_daemon()
 {
     pid_t pid;
 

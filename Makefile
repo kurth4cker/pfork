@@ -12,7 +12,10 @@ OBJECTS = main.o pfork.o
 HEADERS = pfork.h
 MAN1_PAGES = pfork.1
 
-INTERNAL_CFLAGS = -I. $(CFLAGS)
+INTERNAL_CFLAGS = \
+	-std=c23 \
+	-I. \
+	$(CFLAGS)
 
 all: $(PROGRAM) $(MAN1_PAGES)
 

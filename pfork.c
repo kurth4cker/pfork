@@ -39,7 +39,7 @@ extern void skeleton_daemon()
         exit(EXIT_FAILURE);
 
     /* Catch, ignore and handle signals */
-    //TODO: Implement a working signal handler */
+    // TODO: Implement a working signal handler
     signal(SIGCHLD, SIG_IGN);
     signal(SIGHUP, SIG_IGN);
 
@@ -60,7 +60,7 @@ extern void skeleton_daemon()
     /* Set new file permissions */
     umask(umask_val);
     
-    if(silent) {
+    if (silent) {
         mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP;
         int fdin = open(infile, O_RDONLY,mode);
         int fdout = open(logfile, O_WRONLY | O_CREAT,mode);

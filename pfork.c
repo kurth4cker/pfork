@@ -51,9 +51,10 @@ extern void skeleton_daemon()
         exit(EXIT_FAILURE);
 
     /* Success: Let the parent terminate */
-    if (pid > 0)
-        fprintf (stderr, "\nDaemon started:\t[%d]\n",getpid ()+pid);
+    if (pid > 0) {
+        fprintf(stderr, "\nDaemon started:\t[%d]\n",getpid ()+pid);
         exit(EXIT_SUCCESS);
+    }
     
    
     /* Set new file permissions */

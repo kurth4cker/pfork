@@ -2,21 +2,22 @@
 // SPDX-FileCopyrightText: 2020,2024 sulincix <pardusccix@yandex.ru>
 // SPDX-FileCopyrightText: 2024-2025 kurth4cker <kurth4cker@gmail.com>
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <signal.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <string.h>
 #include <fcntl.h>
 #include <pty.h>
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
-mode_t umask_val = 0;
+#include "pfork.h"
+
 const char *logfile = "pfork.out";
 const char *infile = "pfork.in";
 
 bool silent = true;
+
+static mode_t umask_val = 0;
 
 void set_umask(mode_t value)
 {

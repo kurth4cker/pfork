@@ -1,13 +1,12 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // SPDX-FileCopyrightText: 2019,2020,2024 sulincix <pardusccix@yandex.ru>
-// SPDX-FileCopyrightText: 2024 kurth4cker <kurth4cker@gmail.com>
+// SPDX-FileCopyrightText: 2024,2025 kurth4cker <kurth4cker@gmail.com>
 
-#include <pfork.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
 #include <stdio.h>
-#include <sys/wait.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+#include "pfork.h"
 
 int main(int argc, char *argv[]) {
     char *args[argc];

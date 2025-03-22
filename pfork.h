@@ -6,6 +6,7 @@
  * current pid value changed
 */
 
+#include <stdbool.h>
 #include <sys/types.h>
 //main daemonizer function
 void skeleton_daemon();

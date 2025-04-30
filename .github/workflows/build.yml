@@ -1,0 +1,64 @@
+name: Build
+permissions:
+  contents: read
+
+on:
+  push:
+    branches:
+      - "v0"
+  pull_request:
+    branches:
+      - "v0"
+
+jobs:
+  alpine:
+    runs-on: ubuntu-latest
+    container: alpine:latest
+
+    steps:
+      - name: Install Dependencies
+        run: apk add gcc libc-dev
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Bootstrap nob
+        run: cc -o nob nob.c
+
+      - name: Build
+        run: ./nob
+
+  debian:
+    runs-on: ubuntu-latest
+    container: debian:latest
+
+    steps:
+      - name: Install Dependencies
+        run: |
+          apt update
+          apt install -y make gcc
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Bootstrap nob
+        run: cc -o nob nob.c
+
+      - name: Build
+        run: ./nob
+
+  void-glibc:
+    runs-on: ubuntu-latest
+    container: ghcr.io/void-linux/void-glibc:latest
+    steps:
+      - name: Install dependencies
+        run: xbps-install -Sy git make gcc
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Bootstrap nob
+        run: cc -o nob nob.c
+
+      - name: Build
+        run: ./nob

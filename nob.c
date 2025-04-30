@@ -22,5 +22,20 @@ main(int argc, char **argv)
         exit(EXIT_FAILURE);
     }
 
-    // TODO(#2): build documentation with scdoc
+    // TODO(#6): improve redirect cmd output
+    Nob_Fd fdin = nob_fd_open_for_read("pfork.1.scd");
+    Nob_Fd fdout = nob_fd_open_for_write("pfork.1");
+    if (fdin == NOB_INVALID_FD || fdout == NOB_INVALID_FD) {
+        nob_log(NOB_WARNING, "cannot run scdoc");
+    } else {
+        nob_cmd_append(cmd, "scdoc");
+        if (!nob_cmd_run_sync_redirect_and_reset(cmd, (Nob_Cmd_Redirect) {
+                .fdin = &fdin,
+                .fdout = &fdout,
+        })) {
+            nob_log(NOB_WARNING, "cannot run scdoc");
+        }
+        nob_fd_close(fdin);
+        nob_fd_close(fdout);
+    }
 }

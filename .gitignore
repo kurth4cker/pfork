@@ -1,3 +1,6 @@
-/pfork
-/pfork.1
-/*.o
+pfork
+pfork.1
+*.o
+nob
+nob.old
+tags

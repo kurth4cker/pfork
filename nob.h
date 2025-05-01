@@ -1035,7 +1035,7 @@ Nob_Proc nob_cmd_run_async_redirect_file(Nob_Cmd cmd, Nob_Cmd_Redirect_File redi
         fds.fderr = &redirect.ferr->fd;
     }
 
-    nob__spawn_with_pipe(cmd, fds);
+    return nob__spawn_with_pipe(cmd, fds);
 }
 
 Nob_Proc nob_cmd_run_async_and_reset(Nob_Cmd *cmd)

@@ -32,7 +32,7 @@ main(int argc, char **argv)
                 .fin = &fin,
                 .fout = &fout,
         })) {
-            nob_log(NOB_WARNING, "cannot run scdoc");
+            exit(EXIT_FAILURE);
         }
         nob_file_close(fin);
         nob_file_close(fout);

@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Install Dependencies
-        run: apk add gcc libc-dev
+        run: apk add gcc libc-dev scdoc
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,7 +36,7 @@ jobs:
       - name: Install Dependencies
         run: |
           apt update
-          apt install -y make gcc
+          apt install -y make gcc scdoc
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -52,7 +52,7 @@ jobs:
     container: ghcr.io/void-linux/void-glibc:latest
     steps:
       - name: Install dependencies
-        run: xbps-install -Sy git make gcc
+        run: xbps-install -Sy git make gcc scdoc
 
       - name: Checkout repository
         uses: actions/checkout@v4

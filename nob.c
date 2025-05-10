@@ -22,17 +22,19 @@ main(int argc, char **argv)
         exit(EXIT_FAILURE);
     }
 
-    Nob_File fin = nob_file_open_for_read("pfork.1.scd");
-    Nob_File fout = nob_file_open_for_write("pfork.1");
-    nob_cmd_append(cmd, "scdoc");
-    if (fin.fd == NOB_INVALID_FD
-        || fout.fd == NOB_INVALID_FD
-        || !nob_cmd_run_sync_redirect_file_and_reset(cmd, (Nob_Cmd_Redirect_File) {
-            .fin = &fin,
-            .fout = &fout,
-    })) {
-        nob_log(NOB_WARNING, "cannot run scdoc");
+    if (nob_needs_rebuild1("pfork.1", "pfork.1.scd")) {
+        Nob_File fin = nob_file_open_for_read("pfork.1.scd");
+        Nob_File fout = nob_file_open_for_write("pfork.1");
+        nob_cmd_append(cmd, "scdoc");
+        if (fin.fd == NOB_INVALID_FD
+            || fout.fd == NOB_INVALID_FD
+            || !nob_cmd_run_sync_redirect_file_and_reset(cmd, (Nob_Cmd_Redirect_File) {
+                .fin = &fin,
+                .fout = &fout,
+        })) {
+            nob_log(NOB_WARNING, "cannot run scdoc");
+        }
+        nob_file_close(fin);
+        nob_file_close(fout);
     }
-    nob_file_close(fin);
-    nob_file_close(fout);
 }

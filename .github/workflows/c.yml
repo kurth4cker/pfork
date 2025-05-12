@@ -1,0 +1,57 @@
+name: Build
+permissions:
+  contents: read
+
+on:
+  push:
+    branches:
+      - "v0"
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: ${{ matrix.os }} / ${{ matrix.cc }}
+    runs-on: ubuntu-latest
+    container: ${{ matrix.image }}
+
+    strategy:
+      matrix:
+        include:
+          - os: alpine
+            cc: gcc
+            image: alpine:latest
+            install: apk add libc-dev gcc scdoc
+
+          - os: alpine
+            cc: clang
+            image: alpine:latest
+            install: apk add libc-dev clang scdoc
+
+          - os: debian
+            cc: gcc
+            image: debian:latest
+            install: apt update && apt install -y gcc scdoc
+
+          - os: debian
+            cc: clang
+            image: debian:latest
+            install: apt update && apt install -y clang scdoc
+
+    env:
+      CC: ${{ matrix.cc }}
+      CFLAGS: -Wall -Wextra -Werror
+
+
+    steps:
+      - name: Install Dependencies
+        run: ${{ matrix.install }}
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Bootstrap nob
+        run: $CC $CFLAGS -o nob nob.c
+
+      - name: Build
+        run: ./nob

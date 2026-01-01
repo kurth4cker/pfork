@@ -9,6 +9,7 @@ Daemonize given program. Detach from terminal.
 * A C17 compiler
 * [scdoc][] (optional, for man page generation)
 
+
     # Bootstrap build system
     cc -o nob nob.c
 

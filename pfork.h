@@ -9,7 +9,7 @@
 #include <stdbool.h>
 #include <sys/types.h>
 //main daemonizer function
-void skeleton_daemon();
+void skeleton_daemon(void);
 
 //change umask value for daemon (default 022)
 void set_umask(mode_t umask_value);

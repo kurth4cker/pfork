@@ -12,8 +12,16 @@ main(int argc, char **argv)
 {
     NOB_GO_REBUILD_URSELF_PLUS(argc, argv, "nob.h");
 
+    const char *cc = "cc";
+    {
+        const char *env_cc = getenv("CC");
+        if (env_cc != NULL) {
+            cc = env_cc;
+        }
+    }
+
     Nob_Cmd *cmd = &(Nob_Cmd) { 0 };
-    nob_cmd_append(cmd, "cc", "-std=c17", "-pedantic");
+    nob_cmd_append(cmd, cc, "-std=c17", "-pedantic");
     nob_cmd_append(cmd, "-g", "-Werror");
     nob_cmd_append(cmd, "-Wall", "-Wextra");
     nob_cc_inputs(cmd, "pfork.c", "main.c");

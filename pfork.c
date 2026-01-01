@@ -25,7 +25,7 @@ void set_umask(mode_t value)
     umask_val = value;
 }
 
-void skeleton_daemon()
+void skeleton_daemon(void)
 {
     pid_t pid;
 
@@ -61,17 +61,17 @@ void skeleton_daemon()
         fprintf(stderr, "\nDaemon started:\t[%d]\n",getpid ()+pid);
         exit(EXIT_SUCCESS);
     }
-    
-   
+
+
     /* Set new file permissions */
     umask(umask_val);
-    
+
     if (silent) {
         mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP;
         int fdin = open(infile, O_RDONLY,mode);
         int fdout = open(logfile, O_WRONLY | O_CREAT,mode);
         int fderr = open(logfile, O_WRONLY | O_CREAT,mode);
-    
+
         /* Set in, out and err to file*/
         close(0);
         dup(fdin);

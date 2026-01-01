@@ -9,12 +9,13 @@ Daemonize given program. Detach from terminal.
 * A C17 compiler
 * [scdoc][] (optional, for man page generation)
 
-
+```
     # Bootstrap build system
     cc -o nob nob.c
 
     # Build **pfork** and it's man page
     ./nob
+```
 
 ## Copying
 License under GPL-3.0-or-later. See file LICENSE for details.

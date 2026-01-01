@@ -6,24 +6,14 @@ Daemonize given program. Detach from terminal.
 ### Requirements
 **pfork** is a simple project. You need:
 
-* A C99 compiler
-* POSIX make
+* A C17 compiler
 * [scdoc][] (optional, for man page generation)
 
-Standard makefile. Here are some installation examples
+    # Bootstrap build system
+    cc -o nob nob.c
 
-    # compile and install
-    make
-    make install
-
-    # compile with optimization
-    make CFLAGS=-O2
-
-    # compile only binary (if you don't want manpage)
-    make pfork
-
-    # you can set some variables. like PREFIX, BINDIR
-    make PREFIX=/usr install
+    # Build **pfork** and it's man page
+    ./nob
 
 ## Copying
 License under GPL-3.0-or-later. See file LICENSE for details.

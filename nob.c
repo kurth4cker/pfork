@@ -21,7 +21,7 @@ main(int argc, char **argv)
     }
 
     Nob_Cmd *cmd = &(Nob_Cmd) { 0 };
-    nob_cmd_append(cmd, cc, "-std=c17", "-pedantic");
+    nob_cmd_append(cmd, cc, "-std=c99", "-pedantic");
     nob_cmd_append(cmd, "-g", "-Werror");
     nob_cmd_append(cmd, "-Wall", "-Wextra");
     nob_cc_inputs(cmd, "pfork.c", "main.c");

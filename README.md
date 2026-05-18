@@ -6,7 +6,7 @@ Daemonize given program. Detach from terminal.
 ### Requirements
 **pfork** is a simple project. You need:
 
-* A C17 compiler
+* A C99 compiler
 * [scdoc][] (optional, for man page generation)
 
 ```

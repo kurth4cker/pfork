@@ -1,3 +1,7 @@
+# ARCHIVAL NOTE
+Project is moved back to where it started first. See:
+https://gitlab.com/kurth4cker/pfork
+
 # pfork
 Daemonize given program. Detach from terminal.
 
